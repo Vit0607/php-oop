@@ -42,6 +42,34 @@ class Database {
         return $this;
     }
 
+    public function action($action, $table, $where=[]) {
+        if(count($where) === 3) {
+            $field = $where[0];
+            $operator = $where[1];
+            $value = $where[2];
+
+            $operators = ['=', '>', '<', '>=', '<='];
+
+            if (in_array($operator, $operators)) {
+                $sql = "{$action} FROM {$table} WHERE {$field}{$operator} ?";
+                if(!$this->query($sql, [$value])->error()) {
+                    return $this;
+                }
+
+            }
+        }
+
+        return false;
+    }
+
+    public function get($table, $where = []) {
+        return $this->action('SELECT *', $table, $where);
+    }
+
+    public function delete($table, $where=[]) {
+        return $this->action('DELETE', $table, $where);
+    }
+
     public function error() {
         return $this->error;
     }

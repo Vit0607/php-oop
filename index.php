@@ -2,7 +2,9 @@
 
 require_once 'Database.php';
 
-$users = Database::getInstance()->query("SELECT * FROM users WHERE username IN (?, ?)", ['Alita Gray', 'Jim Ketty']);
+// $users = Database::getInstance()->query("SELECT * FROM users WHERE username IN (?, ?)", ['Alita Gray', 'Jim Ketty']);
+$users = Database::getInstance()->get('users', ['username', '=', 'Oliver Kopyov']);
+// $users = Database::getInstance()->delete('users', ['id', '=', '13']);
 
 if ($users->error()) {
     echo 'we have an error';
