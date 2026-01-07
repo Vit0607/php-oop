@@ -70,6 +70,29 @@ class Database {
         return $this->action('DELETE', $table, $where);
     }
 
+    public function insert($table, $fields) {
+        $keys = array_keys($fields);
+        $keys = '`' . implode('`, `', $keys) . '`';
+
+        $values = '';
+        foreach ($fields as $field) {
+            $values .= '?, ';
+        }
+        $val = rtrim($values, ', ');
+
+        if (isset($fields['password'])) {
+            $fields['password'] = password_hash($fields['password'], PASSWORD_DEFAULT);
+        }
+        
+        $sql = "INSERT INTO {$table} ($keys) VALUES ($val)";
+
+        if(!$this->query($sql, array_values($fields))->error()) {
+            return true;
+        }
+
+        return false;
+    }
+
     public function error() {
         return $this->error;
     }
