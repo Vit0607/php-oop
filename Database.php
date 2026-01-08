@@ -93,6 +93,24 @@ class Database {
         return false;
     }
 
+    public function update($table, $id, $fields) {
+        $set = '';
+        foreach ($fields as $key => $field) {
+            $set .= "{$key} = ?, ";
+        }
+        $set = rtrim($set, ', ');
+
+        $fields['password'] = password_hash($fields['password'], PASSWORD_DEFAULT);
+ 
+        $sql = "UPDATE {$table} SET {$set} WHERE id = {$id}";
+        
+        if (!$this->query($sql, array_values($fields))->error()) {
+            return true;
+        }
+
+        return false;
+    }
+
     public function error() {
         return $this->error;
     }
@@ -103,5 +121,9 @@ class Database {
 
     public function count() {
         return $this->count;
+    }
+
+    public function first() {
+        return $this->results[0];
     }
 }
