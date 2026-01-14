@@ -21,23 +21,31 @@ class Validate {
                             if(strlen($value) < $rule_value) {
                                 $this->addError("{$item} must be a minimum of {$rule_value} characters");
                             }
-                        break;    
+                        break;   
+
                         case 'max':
                             if(strlen($value) > $rule_value) {
                                 $this->addError("{$item} must have less {$rule_value} characters");
                             }
                         break;
+
                         case 'unique':
                             $check = $this->db->get($rule_value, [$item, '=', $value]);
                             if ($check->count()) {
                                 $this->addError("{$item} already exists");
                             }
-                            break;
+                        break;
+
                         case 'matches':
                             if ($value != $source[$rule_value]) {
                                 $this->addError("{$item} must match {$rule_value}");
                             }
                         break;
+
+                        case 'email':
+                            if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
+                                $this->addError("{$item} is not an email");
+                            }
                     }
                 }
             }
