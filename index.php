@@ -8,6 +8,7 @@ require_once 'Validate.php';
 require_once 'Token.php';
 require_once 'Session.php';
 require_once 'User.php';
+require_once 'Redirect.php';
 
 $GLOBALS['config'] = 
 [
@@ -58,7 +59,7 @@ if (Input::exists()) {
            ]);
 
             Session::flash('success', 'register success');
-            // header('Location: /test.php');
+            // Redirect::to('test.php');
         } else {
             foreach ($validation->errors() as $error) {
                 echo $error . '<br>';
