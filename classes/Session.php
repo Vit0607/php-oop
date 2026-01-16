@@ -5,8 +5,8 @@ class Session {
         return $_SESSION[$name] = $value;
     }
 
-    public static function exists($name) {
-        return isset($_SESSION[$name]) ? true : false;
+    public static function exists($name): bool {
+        return isset($_SESSION[$name]);
     }
 
     public static function delete($name) {
