@@ -60,4 +60,8 @@ class User {
     public function isLoggedIn() {
         return $this->isLoggedIn;
     }
+
+    public function logout() {
+        Session::delete($this->session_name);
+    }
 }

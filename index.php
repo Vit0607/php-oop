@@ -7,7 +7,7 @@ $user = new User;
 $anotherUser = new User(14);
 
 if ($user->isLoggedIn()) {
-    echo "Hi, <a href='#'>{$user->data()->username}</a>";
+    echo "Hi, <a href='logout.php'>{$user->data()->username}</a>";
     echo '<br><br>';
     echo '<a href="logout.php">Logout</a>';
 } else {
