@@ -94,13 +94,16 @@ class Database {
     }
 
     public function update($table, $id, $fields) {
+
         $set = '';
         foreach ($fields as $key => $field) {
             $set .= "{$key} = ?, ";
         }
         $set = rtrim($set, ', ');
 
-        $fields['password'] = password_hash($fields['password'], PASSWORD_DEFAULT);
+        if (isset($fields['password'])) {
+            $fields['password'] = password_hash($fields['password'], PASSWORD_DEFAULT);
+        }
  
         $sql = "UPDATE {$table} SET {$set} WHERE id = {$id}";
         

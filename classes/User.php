@@ -91,4 +91,8 @@ class User {
     public function exists() {
         return !empty($this->data()) ? true : false;
     }
+
+    public function update($id, $fields) {
+        $this->db->update('users', $id, $fields);
+    }
 }

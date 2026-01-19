@@ -9,8 +9,7 @@ if (Input::exists()) {
             'username' => [
                 'required' => true,
                 'min' => 2,
-                'max' => 15,
-                'unique' => 'users'
+                'max' => 15
             ],
             'email' => [
                 'required' => true,
